@@ -1,0 +1,104 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build All",
+            "dependsOn": ["Clean", "Assemble_Main", "Assemble_GameLogic", "Assemble_UI", "Assemble_FileIO", "Assemble_Combat", "Link All"],
+            "dependsOrder": "sequence",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean",
+            "type": "process",
+            "command": "cmd.exe",
+            "args": [
+                "/c",
+                "if exist \"${workspaceFolder}\\\\build\\\\game.exe\" del \"${workspaceFolder}\\\\build\\\\game.exe\" && if exist \"${workspaceFolder}\\\\build\\\\obj\\\\*.obj\" del \"${workspaceFolder}\\\\build\\\\obj\\\\*.obj\""
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Assemble_Main",
+            "type": "process",
+            "command": "nasm", 
+            "args": [
+                "-f", "win64",
+                "-I", "${workspaceFolder}\\\\game_codes\\\\",
+                "${workspaceFolder}\\\\game_codes\\\\main.asm",
+                "-o", "${workspaceFolder}\\\\build\\\\obj\\\\main.obj"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Assemble_GameLogic",
+            "type": "process",
+            "command": "nasm",
+            "args": [
+                "-f", "win64",
+                "-I", "${workspaceFolder}\\\\game_codes\\\\",
+                "${workspaceFolder}\\\\game_codes\\\\game_logic.asm",
+                "-o", "${workspaceFolder}\\\\build\\\\obj\\\\game_logic.obj"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Assemble_UI",
+            "type": "process",
+            "command": "nasm",
+            "args": [
+                "-f", "win64",
+                "-I", "${workspaceFolder}\\\\game_codes\\\\",
+                "${workspaceFolder}\\\\game_codes\\\\ui.asm",
+                "-o", "${workspaceFolder}\\\\build\\\\obj\\\\ui.obj"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Assemble_FileIO",
+            "type": "process",
+            "command": "nasm",
+            "args": [
+                "-f", "win64",
+                "-I", "${workspaceFolder}\\\\game_codes\\\\",
+                "${workspaceFolder}\\\\game_codes\\\\file_io.asm",
+                "-o", "${workspaceFolder}\\\\build\\\\obj\\\\file_io.obj"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Assemble_Combat",
+            "type": "process",
+            "command": "nasm",
+            "args": [
+                "-f", "win64",
+                "-I", "${workspaceFolder}\\\\game_codes\\\\",
+                "${workspaceFolder}\\\\game_codes\\\\combat.asm",
+                "-o", "${workspaceFolder}\\\\build\\\\obj\\\\combat.obj"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Link All",
+            "type": "process",
+            "command": "gcc",
+            "args": [
+                "${workspaceFolder}\\\\build\\\\obj\\\\main.obj",
+                "${workspaceFolder}\\\\build\\\\obj\\\\game_logic.obj",
+                "${workspaceFolder}\\\\build\\\\obj\\\\ui.obj",
+                "${workspaceFolder}\\\\build\\\\obj\\\\file_io.obj",
+                "${workspaceFolder}\\\\build\\\\obj\\\\combat.obj",
+                "-o",
+                "${workspaceFolder}\\\\build\\\\game.exe"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

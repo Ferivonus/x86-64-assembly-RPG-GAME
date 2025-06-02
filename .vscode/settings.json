@@ -1,0 +1,10 @@
+{
+    "editor.formatOnSave": false, 
+
+    "[assembly]": {
+        "editor.formatOnSave": false
+    },
+    "[nasm]": { 
+        "editor.formatOnSave": false
+    }
+}
